@@ -26,6 +26,11 @@ export default {
   opacity: 0;
 }
 
+html {
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
 #app {
   background: #0B0A07;
   color: white;
