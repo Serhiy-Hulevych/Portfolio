@@ -7,17 +7,17 @@
                         <p class="main-title">Hi, my name is <span>{{ profile.name }}</span></p>
                         <div class="is-flex is-align-items-center">
                             <p class="sub-title">{{ profile.title }}</p>
-                            <img src="@/assets/linkedin.png" alt="LinkedIn" class="image is-24x24 is-clickable ml-3"
-                                @click="openLinkedIn()">
-                            <img src="@/assets/github.png" alt="Github" class="image is-24x24 is-clickable ml-3"
+                            <img src="@/assets/linkedin.png" alt="LinkedIn"
+                                class="image is-24x24 is-clickable ml-3 social-icon" @click="openLinkedIn()">
+                            <img src="@/assets/github.png" alt="Github" class="image is-24x24 is-clickable ml-3 social-icon"
                                 style="width: auto; background-color: white;" @click="openGithub()">
                         </div>
                         <p class="title-bio">{{ profile.bio }}</p>
                         <div class="is-flex mt-3">
-                            <button class="button has-text-weight-bold" @click="contact()"
+                            <button class="button has-text-weight-bold contact-info" @click="contact()"
                                 style="background-color: #BBCEA8;">Contact
                                 Me</button>
-                            <button class="button has-text-weight-bold ml-3" @click="downloadCV()"
+                            <button class="button has-text-weight-bold ml-3 contact-info" @click="downloadCV()"
                                 style="background-color: #BBCEA8;"><span>CV</span>
                                 <span class="icon is-small">
                                     <font-awesome-icon icon="fa-solid fa-download" />
@@ -44,24 +44,44 @@
                     <div class="skill-box">
                         <p class="skill-title skill-box-label pt-3">Languages/Frameworks</p>
                         <div class="programming-languages">
-                            <img src="@/assets/python.png" alt="Python" class="image is-64x64 programming-item">
-                            <img src="@/assets/javascript.png" alt="Javascript" class="image is-64x64 programming-item">
-                            <img src="@/assets/net_core.png" alt=".Net Core" class="image is-64x64 programming-item">
-                            <img src="@/assets/java.jpg" alt="Java" class="image is-64x64 programming-item">
-                            <img src="@/assets/c_sharp.svg" alt="C#" class="image is-64x64 programming-item">
-                            <img src="@/assets/mysql.png" alt="MySQL" class="image is-64x64 programming-item">
+                            <img src="@/assets/c_sharp.svg" alt="C#" class="image is-64x64">
+                            <img src="@/assets/net_core.png" alt=".Net Core" class="image is-64x64">
+                            <img src="@/assets/javascript.png" alt="Javascript" class="image is-64x64">
+                            <img src="@/assets/vue.png" alt="Vuejs" class="image is-64x64">
+                            <img src="@/assets/java.jpg" alt="Java" class="image is-64x64">
+                            <img src="@/assets/python.png" alt="Python" class="image is-64x64">
+                            <img src="@/assets/mysql.png" alt="MySQL" class="image is-64x64">
                         </div>
                     </div>
                 </div>
                 <div class="column">
                     <div class="skill-box">
                         <p class="skill-title skill-box-label pt-3">Work Experience</p>
-                        <p class="is-size-1 has-text-weight-bold has-text-black mt-6">2+ years</p>
+                        <p class="is-size-1 has-text-weight-bold has-text-black mt-6">2 years</p>
                     </div>
                 </div>
                 <div class="column">
                     <div class="skill-box">
                         <p class="skill-title skill-box-label pt-3">Tools</p>
+                        <div class="tools">
+                            <img src="@/assets/bitbucket2.png" alt="bitbucket" class="image is-64x64"
+                                style="max-width:100px !important">
+                            <img src="@/assets/git.png" alt="git" class="image is-64x64"
+                                style="max-width: 70px !important;">
+                            <img src="@/assets/studio.png" alt="studio" class="image is-64x64"
+                                style="height: 35px !important;">
+                            <img src="@/assets/sourcetree.png" alt="sourcetree" class="image is-64x64">
+                            <img src="@/assets/jira.png" alt="jira" class="image is-64x64"
+                                style="max-width: 70px !important;">
+                            <img src="@/assets/studio_code.png" alt="studio code" class="image is-64x64"
+                                style="height: 35px !important;">
+                            <img src="@/assets/confluence.png" alt="confluence" class="image is-64x64">
+
+                            <img src="@/assets/owasp.png" alt="owasp" class="image is-64x64"
+                                style="max-width: 70px !important;">
+                            <img src="@/assets/azure.png" alt="azure" class="image is-64x64"
+                                style="height: 35px !important;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,7 +94,7 @@
                     <p class="education-profession-label">Work</p>
                     <img src="@/assets/profession.svg" alt="Profession Icon" class="image is-128x128">
                 </div>
-                <div class="education-profession-item item3 reveal">
+                <div class="education-profession-item item3 reveal" @click="$router.push('/Certificates')">
                     <p class="education-profession-label">Certificates</p>
                     <img src="@/assets/profession.svg" alt="Certificates Icon" class="image is-128x128">
                 </div>
@@ -144,7 +164,7 @@ export default {
             window.open("https://github.com/Serhiy-Hulevych?tab=repositories")
         },
         downloadCV() {
-            import('@/assets/teste.pdf').then((pdfModule) => {
+            import('@/assets/CV-Serhiy_Hulevych.pdf').then((pdfModule) => {
                 // Get the actual path from the imported module
                 const pdfPath = pdfModule.default;
 
@@ -195,12 +215,30 @@ export default {
 .programming-languages {
     border-radius: 10px;
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto;
     column-gap: 10px;
-    row-gap: 10px;
+    row-gap: 35px;
     padding: 10px;
     justify-items: center;
     align-items: center;
+}
+
+.tools {
+    border-radius: 10px;
+    display: grid !important;
+    grid-template-columns: auto auto auto;
+    column-gap: 10px;
+    row-gap: 20px;
+    padding: 10px;
+    justify-items: center;
+    align-items: center;
+}
+
+.is-64x64 {
+    width: auto !important;
+    max-width: 100px !important;
+    height: auto !important;
+    max-height: 50px !important;
 }
 
 .programming-item:hover {
@@ -287,5 +325,13 @@ export default {
 .reveal.active {
     transform: translateY(0);
     opacity: 1;
+}
+
+.social-icon:hover {
+    scale: 1.2;
+}
+
+.contact-info:hover {
+    scale: 1.1
 }
 </style>

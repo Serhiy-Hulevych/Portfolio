@@ -7,7 +7,7 @@ module.exports = defineConfig({
     port: 8080,
     open: true,
   },
-  publicPath: '/serhiy-portfolio/',
+  publicPath: '/',
   chainWebpack: (config) => {
     // Add a rule for PDF files
     config.module

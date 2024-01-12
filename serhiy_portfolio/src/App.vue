@@ -28,7 +28,7 @@ export default {
 
 html {
   overflow-x: auto;
-  overflow-y: auto;
+  overflow-y: auto !important;
 }
 
 #app {
