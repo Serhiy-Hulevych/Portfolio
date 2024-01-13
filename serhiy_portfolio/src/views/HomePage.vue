@@ -105,10 +105,12 @@
 </template>
 
 <script>
+import { useAppInsights } from "vue3-application-insights";
 import ContactModal from "@/modals/ContactModal.vue"
 export default {
     components: { ContactModal },
     data: () => ({
+        appInsights: "",
         profile: {
             name: "Serhiy Hulevych",
             title: "Full Stack Developer",
@@ -119,6 +121,7 @@ export default {
         wantContact: false
     }),
     created() {
+        this.appInsights = useAppInsights();
         this.reveal()
         this.calculateAge(1998, 4, 18)
         document.querySelector("#app").addEventListener("scroll", this.reveal);
@@ -152,18 +155,31 @@ export default {
             }
         },
         contact() {
+            this.appInsights.trackEvent({
+                name: "click-contact",
+            });
             this.wantContact = true
         },
         closeContactModal() {
             this.wantContact = false
         },
         openLinkedIn() {
+            this.appInsights.trackEvent({
+                name: "click-linkedin",
+            });
             window.open("https://www.linkedin.com/in/serhiy-hulevych-847018172/")
         },
         openGithub() {
+            this.appInsights.trackEvent({
+                name: "click-github",
+            });
             window.open("https://github.com/Serhiy-Hulevych?tab=repositories")
         },
         downloadCV() {
+            this.appInsights.trackEvent({
+                name: "download-cv",
+            });
+
             import('@/assets/CV-Serhiy_Hulevych.pdf').then((pdfModule) => {
                 // Get the actual path from the imported module
                 const pdfPath = pdfModule.default;
