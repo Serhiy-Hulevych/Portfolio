@@ -96,7 +96,7 @@
                 </div>
                 <div class="education-profession-item item3 reveal" @click="$router.push('/Certificates')">
                     <p class="education-profession-label">Certificates</p>
-                    <img src="@/assets/profession.svg" alt="Certificates Icon" class="image is-128x128">
+                    <img src="@/assets/medal.svg" alt="Certificates Icon" class="image is-128x128">
                 </div>
             </div>
         </div>
@@ -349,5 +349,38 @@ export default {
 
 .contact-info:hover {
     scale: 1.1
+}
+
+@media (max-width: 500px) {
+    .education-profession {
+        grid-template-columns: auto !important;
+    }
+
+    .education-profession {
+        justify-content: center;
+    }
+
+    .item1 {
+        grid-row: 1;
+        width: 300px;
+    }
+
+    .item2 {
+        grid-row: 2;
+        width: 300px;
+    }
+
+    .item3 {
+        grid-row: 3;
+        width: 300px;
+    }
+
+    .profile-container * {
+        margin-left: 0px !important;
+    }
+
+    .main-title {
+        font-size: 40px;
+    }
 }
 </style>
