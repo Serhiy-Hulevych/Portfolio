@@ -1,353 +1,405 @@
 <template>
-    <div class="section">
-        <div class="container">
-            <div class="profile-container">
-                <div class="columns">
-                    <div class="column">
-                        <p class="main-title">Hi, my name is <span>{{ profile.name }}</span></p>
-                        <div class="is-flex is-align-items-center">
-                            <p class="sub-title">{{ profile.title }}</p>
-                            <img src="@/assets/linkedin.png" alt="LinkedIn"
-                                class="image is-24x24 is-clickable ml-3 social-icon" @click="openLinkedIn()">
-                            <img src="@/assets/github.png" alt="Github" class="image is-24x24 is-clickable ml-3 social-icon"
-                                style="width: auto; background-color: white;" @click="openGithub()">
-                        </div>
-                        <p class="title-bio">{{ profile.bio }}</p>
-                        <div class="is-flex mt-3">
-                            <button class="button has-text-weight-bold contact-info" @click="contact()"
-                                style="background-color: #BBCEA8;">Contact
-                                Me</button>
-                            <button class="button has-text-weight-bold ml-3 contact-info" @click="downloadCV()"
-                                style="background-color: #BBCEA8;"><span>CV</span>
-                                <span class="icon is-small">
-                                    <font-awesome-icon icon="fa-solid fa-download" />
-                                </span></button>
-                        </div>
-                    </div>
-                    <div class="column has-text-centered is-flex">
-                        <img src="@/assets/profile-picture-nb.png" alt="Photo Unavailable" class="ml-6">
-                    </div>
-                    <!--
-                        <div class="column">
-                        <div class="box is-size-2">
-                            <p>Hello, my name is <span class="has-text-weight-bold">{{ profile.name }}</span> and I've been
-                                working
-                                as a <span class="has-text-weight-bold">{{ profile.title }}</span> for the past <span
-                                    class="has-text-weight-bold"> {{ profile.years }}</span> years</p>
-                        </div>
-                    </div>
-                    -->
-                </div>
-            </div>
-            <div class="skills-container columns has-text-centered mt-3">
-                <div class="column">
-                    <div class="skill-box">
-                        <p class="skill-title skill-box-label pt-3">Languages/Frameworks</p>
-                        <div class="programming-languages">
-                            <img src="@/assets/c_sharp.svg" alt="C#" class="image is-64x64">
-                            <img src="@/assets/net_core.png" alt=".Net Core" class="image is-64x64">
-                            <img src="@/assets/javascript.png" alt="Javascript" class="image is-64x64">
-                            <img src="@/assets/vue.png" alt="Vuejs" class="image is-64x64">
-                            <img src="@/assets/java.jpg" alt="Java" class="image is-64x64">
-                            <img src="@/assets/python.png" alt="Python" class="image is-64x64">
-                            <img src="@/assets/mysql.png" alt="MySQL" class="image is-64x64">
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="skill-box">
-                        <p class="skill-title skill-box-label pt-3">Work Experience</p>
-                        <p class="is-size-1 has-text-weight-bold has-text-black mt-6">2 years</p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="skill-box">
-                        <p class="skill-title skill-box-label pt-3">Tools</p>
-                        <div class="tools">
-                            <img src="@/assets/bitbucket2.png" alt="bitbucket" class="image is-64x64"
-                                style="max-width:100px !important">
-                            <img src="@/assets/git.png" alt="git" class="image is-64x64"
-                                style="max-width: 70px !important;">
-                            <img src="@/assets/studio.png" alt="studio" class="image is-64x64"
-                                style="height: 35px !important;">
-                            <img src="@/assets/sourcetree.png" alt="sourcetree" class="image is-64x64">
-                            <img src="@/assets/jira.png" alt="jira" class="image is-64x64"
-                                style="max-width: 70px !important;">
-                            <img src="@/assets/studio_code.png" alt="studio code" class="image is-64x64"
-                                style="height: 35px !important;">
-                            <img src="@/assets/confluence.png" alt="confluence" class="image is-64x64">
-
-                            <img src="@/assets/owasp.png" alt="owasp" class="image is-64x64"
-                                style="max-width: 70px !important;">
-                            <img src="@/assets/azure.png" alt="azure" class="image is-64x64"
-                                style="height: 35px !important;">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="education-profession mt-6">
-                <div class="education-profession-item item1 reveal" @click="$router.push('/Education')">
-                    <p class="education-profession-label">Education</p>
-                    <img src="@/assets/education.svg" alt="Education Icon" class="image is-128x128">
-                </div>
-                <div class="education-profession-item item2 reveal" @click="$router.push('/Profession')">
-                    <p class="education-profession-label">Work</p>
-                    <img src="@/assets/profession.svg" alt="Profession Icon" class="image is-128x128">
-                </div>
-                <div class="education-profession-item item3 reveal" @click="$router.push('/Certificates')">
-                    <p class="education-profession-label">Certificates</p>
-                    <img src="@/assets/profession.svg" alt="Certificates Icon" class="image is-128x128">
-                </div>
-            </div>
-        </div>
+  <div class="relative overflow-hidden">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0"
+    >
+      <div class="absolute -top-32 right-1/3 h-80 w-80 rounded-full bg-primary/20 blur-3xl"></div>
+      <div class="absolute left-1/4 top-1/2 h-96 w-96 rounded-full bg-accent/20 blur-3xl"></div>
     </div>
-    <contact-modal v-if="wantContact" @close="closeContactModal()" />
+
+    <div class="relative mx-auto max-w-6xl px-4 py-16 md:py-24 space-y-20">
+      <section class="grid gap-12 md:grid-cols-[minmax(0,2fr)_minmax(0,1.1fr)] items-start">
+        <div class="space-y-6">
+          <span class="section-title">Full stack developer</span>
+          <h1 class="headline text-white">
+            Hi, I'm <span class="text-primary">Serhiy</span>. I build resilient web products.
+          </h1>
+          <p class="text-lg leading-relaxed text-slate-300">
+            {{ profile.summary }}
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <span
+              v-for="tag in profile.tags"
+              :key="tag"
+              class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-widest text-slate-300"
+            >
+              {{ tag }}
+            </span>
+          </div>
+          <div class="flex flex-wrap gap-4 pt-6">
+            <button
+              class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-background transition hover:bg-primary/90"
+              @click="openContact"
+            >
+              <Icon icon="mdi:chat-processing-outline" class="h-5 w-5" />
+              Let's talk
+            </button>
+            <button
+              class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-primary/60 hover:bg-primary/10"
+              @click="downloadCV"
+            >
+              <Icon icon="mdi:download" class="h-5 w-5 text-primary" />
+              Download CV
+            </button>
+            <button
+              class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-accent hover:bg-accent/10"
+              @click="openLink(profile.links.linkedin, 'click-linkedin')"
+            >
+              <Icon icon="mdi:linkedin" class="h-5 w-5 text-primary" />
+              LinkedIn
+            </button>
+            <button
+              class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-accent hover:bg-accent/10"
+              @click="openLink(profile.links.github, 'click-github')"
+            >
+              <Icon icon="mdi:github" class="h-5 w-5 text-primary" />
+              GitHub
+            </button>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-6">
+          <div class="glass-card overflow-hidden p-4">
+            <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/10 bg-background/80">
+              <img
+                :src="profilePhoto"
+                alt="Portrait of Serhiy Hulevych"
+                class="h-full w-full object-cover transition duration-700 hover:scale-[1.03]"
+              />
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent"></div>
+              <div class="absolute bottom-5 left-5 right-5 flex items-center justify-between">
+                <div>
+                  <p class="text-xs uppercase tracking-[0.3em] text-slate-300">Based in</p>
+                  <p class="text-sm font-semibold text-white">{{ profile.location }}</p>
+                </div>
+                <Icon icon="mdi:map-marker-radius-outline" class="h-6 w-6 text-primary" />
+              </div>
+            </div>
+          </div>
+          <div class="glass-card flex h-full flex-col gap-6 p-8">
+            <div class="space-y-2">
+              <p class="text-sm uppercase tracking-[0.3em] text-slate-400">Currently</p>
+              <p class="text-xl font-semibold text-white">{{ highlights[1].value }}</p>
+              <p class="text-sm text-slate-300">{{ highlights[1].caption }}</p>
+            </div>
+            <div class="grid gap-4">
+              <div
+                v-for="action in contactActions"
+                :key="action.label"
+                class="flex items-center justify-between rounded-2xl border border-white/5 bg-white/5 px-4 py-3"
+              >
+                <div class="flex items-center gap-3">
+                  <Icon :icon="action.icon" class="h-5 w-5 text-primary" />
+                  <div>
+                    <p class="text-xs uppercase tracking-wide text-slate-400">{{ action.label }}</p>
+                    <p class="text-sm font-medium text-white">{{ action.value }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid gap-6 rounded-3xl border border-white/5 bg-surface/60 p-8 backdrop-blur">
+        <div class="grid gap-6 md:grid-cols-3">
+          <div
+            v-for="item in highlights"
+            :key="item.label"
+            class="rounded-2xl border border-white/5 bg-white/5 p-6 transition hover:border-primary/40 hover:bg-primary/10"
+          >
+            <p class="section-title text-xs text-slate-400">{{ item.label }}</p>
+            <p class="mt-2 text-2xl font-semibold text-white">{{ item.value }}</p>
+            <p class="mt-2 text-sm leading-relaxed text-slate-300">
+              {{ item.caption }}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-10">
+        <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span class="section-title">Experience</span>
+            <h2 class="text-3xl font-semibold text-white md:text-4xl">Recent roles</h2>
+          </div>
+          <button
+            class="inline-flex items-center gap-2 self-start rounded-full border border-primary/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-primary transition hover:bg-primary/10"
+            @click="navigate('/Profession', 'open-experience')"
+          >
+            Deep dive
+            <Icon icon="mdi:arrow-top-right" class="h-4 w-4" />
+          </button>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2">
+          <article
+            v-for="experience in experiences"
+            :key="experience.company"
+            class="glass-card flex h-full flex-col gap-5 p-6"
+          >
+            <div>
+              <p class="text-xs uppercase tracking-[0.3em] text-slate-400">
+                {{ experience.start }} - {{ experience.end }}
+              </p>
+              <h3 class="mt-2 text-2xl font-semibold text-white">
+                {{ experience.role }}
+              </h3>
+              <p class="text-sm text-slate-300">
+                {{ experience.company }} - {{ experience.location }}
+              </p>
+            </div>
+            <p class="text-sm leading-relaxed text-slate-300">
+              {{ experience.summary }}
+            </p>
+            <ul class="space-y-3">
+              <li
+                v-for="point in experience.highlights.slice(0, experiencePreviewCount)"
+                :key="point"
+                class="flex items-start gap-3 text-sm leading-relaxed text-slate-200"
+              >
+                <Icon icon="mdi:check-decagram" class="mt-1 h-5 w-5 text-accentMuted" />
+                <span>{{ point }}</span>
+              </li>
+            </ul>
+            <button
+              v-if="experience.highlights.length > experiencePreviewCount"
+              class="group mt-3 w-full rounded-2xl border border-dashed border-white/10 bg-white/5 px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.25em] text-slate-400 transition hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
+              @click="navigate('/Profession', 'home-experience-more')"
+            >
+              <span class="flex items-center justify-between">
+                <span>+{{ experience.highlights.length - experiencePreviewCount }} more highlights</span>
+                <Icon icon="mdi:arrow-top-right" class="h-4 w-4 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </span>
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <section class="space-y-10">
+        <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span class="section-title">Skills</span>
+            <h2 class="text-3xl font-semibold text-white md:text-4xl">Stacks & strengths</h2>
+          </div>
+          <button
+            class="inline-flex items-center gap-2 self-start rounded-full border border-primary/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-primary transition hover:bg-primary/10"
+            @click="navigate('/Education', 'open-education')"
+          >
+            Education
+            <Icon icon="mdi:open-in-new" class="h-4 w-4" />
+          </button>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-3">
+          <div
+            v-for="group in skills"
+            :key="group.title"
+            class="glass-card flex flex-col gap-6 p-6"
+          >
+            <div>
+              <p class="text-xs uppercase tracking-[0.3em] text-accent/80">{{ group.title }}</p>
+              <p class="mt-1 text-sm text-slate-300">
+                Focused on pragmatic solutions with clean code and guardrails.
+              </p>
+            </div>
+            <ul class="grid gap-3">
+              <li
+                v-for="item in group.items"
+                :key="item.name"
+                class="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/5 px-4 py-3 transition hover:border-primary/40 hover:bg-primary/10"
+              >
+                <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10">
+                  <Icon :icon="item.icon" class="h-6 w-6 text-primary" />
+                </div>
+                <span class="text-sm font-medium text-white">{{ item.name }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-10">
+        <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span class="section-title">Projects & Labs</span>
+            <h2 class="text-3xl font-semibold text-white md:text-4xl">Outside of work</h2>
+          </div>
+          <button
+            class="inline-flex items-center gap-2 self-start rounded-full border border-primary/40 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-primary transition hover:bg-primary/10"
+            @click="navigate('/Certificates', 'open-certificates')"
+          >
+            Certificates
+            <Icon icon="mdi:certificate-outline" class="h-4 w-4" />
+          </button>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <article
+            v-for="project in projects"
+            :key="project.name"
+            class="glass-card flex h-full flex-col gap-6 p-6"
+          >
+            <div>
+              <p class="text-xs uppercase tracking-[0.3em] text-slate-400">{{ project.timeline }}</p>
+              <h3 class="mt-2 text-2xl font-semibold text-white">{{ project.name }}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-slate-300">
+                {{ project.description }}
+              </p>
+            </div>
+            <ul class="space-y-3">
+              <li
+                v-for="outcome in project.outcomes"
+                :key="outcome"
+                class="flex items-start gap-3 text-sm leading-relaxed text-slate-200"
+              >
+                <Icon icon="mdi:lightning-bolt-outline" class="mt-1 h-5 w-5 text-accentMuted" />
+                <span>{{ outcome }}</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="grid gap-6 rounded-3xl border border-white/5 bg-white/5 p-8 backdrop-blur md:grid-cols-[2fr_1fr]">
+        <div>
+          <span class="section-title">Languages</span>
+          <h2 class="text-3xl font-semibold text-white md:text-4xl">Where I feel at home</h2>
+          <p class="mt-3 max-w-xl text-sm text-slate-300">
+            Working across distributed teams taught me to adapt quickly, collaborate transparently,
+            and document decisions so everyone stays aligned.
+          </p>
+        </div>
+        <ul class="grid gap-4">
+          <li
+            v-for="lang in languages"
+            :key="lang.name"
+            class="flex items-center justify-between rounded-2xl border border-white/5 bg-background/60 px-5 py-4"
+          >
+            <span class="text-sm font-semibold text-white">{{ lang.name }}</span>
+            <span class="text-xs uppercase tracking-[0.3em] text-slate-400">{{ lang.level }}</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="grid gap-4 md:grid-cols-3">
+        <button
+          v-for="card in quickLinks"
+          :key="card.title"
+          class="group rounded-3xl border border-white/5 bg-white/5 p-6 text-left transition hover:border-primary/40 hover:bg-primary/10"
+          @click="navigate(card.to, card.analytics)"
+        >
+          <div class="flex items-center justify-between">
+            <span class="text-xs uppercase tracking-[0.3em] text-slate-400">{{ card.section }}</span>
+            <Icon icon="mdi:arrow-top-right" class="h-5 w-5 text-primary transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+          </div>
+          <p class="mt-3 text-xl font-semibold text-white">{{ card.title }}</p>
+          <p class="mt-2 text-sm leading-relaxed text-slate-300">
+            {{ card.description }}
+          </p>
+        </button>
+      </section>
+    </div>
+
+    <contact-modal v-if="wantContact" @close="closeContact" />
+  </div>
 </template>
 
 <script>
+import { Icon } from "@iconify/vue";
 import { useAppInsights } from "vue3-application-insights";
-import ContactModal from "@/modals/ContactModal.vue"
+import ContactModal from "@/modals/ContactModal.vue";
+import profilePhoto from "@/assets/profile-picture-nb.png";
+import {
+  profile,
+  highlights,
+  skills,
+  experiences,
+  projects,
+  contactActions,
+  languages,
+} from "@/data/resume";
+
 export default {
-    components: { ContactModal },
-    data: () => ({
-        appInsights: "",
-        profile: {
-            name: "Serhiy Hulevych",
-            title: "Full Stack Developer",
-            age: -1,
-            years: 2,
-            bio: "Transforming ideas into seamless code, I specialize in crafting efficient solutions for a tech-driven world."
+  name: "HomePage",
+  components: {
+    ContactModal,
+    Icon,
+  },
+  data() {
+    return {
+      profile,
+      highlights,
+      skills,
+      experiences,
+      projects,
+      contactActions,
+      languages,
+      quickLinks: [
+        {
+          section: "Learn More",
+          title: "Academic Journey",
+          description: "Explore the coursework and thesis that shaped my engineering mindset.",
+          to: "/Education",
+          analytics: "cta-education",
         },
-        wantContact: false
-    }),
-    created() {
-        this.appInsights = useAppInsights();
-        this.reveal()
-        this.calculateAge(1998, 4, 18)
-        document.querySelector("#app").addEventListener("scroll", this.reveal);
+        {
+          section: "Track Record",
+          title: "Professional Detail",
+          description: "Dive into responsibilities, ceremonies, and the impact delivered with each team.",
+          to: "/Profession",
+          analytics: "cta-profession",
+        },
+        {
+          section: "Proof Points",
+          title: "Certificates & Kudos",
+          description: "See the credentials and recognition that validate my continuous learning.",
+          to: "/Certificates",
+          analytics: "cta-certificates",
+        },
+      ],
+      wantContact: false,
+      appInsights: null,
+      profilePhoto,
+      experiencePreviewCount: 5,
+    };
+  },
+  created() {
+    this.appInsights = useAppInsights();
+  },
+  methods: {
+    openContact() {
+      this.track("click-contact");
+      this.wantContact = true;
     },
-    methods: {
-        calculateAge(birthYear, birthMonth, birthDay) {
-            const today = new Date();
-            const birthdate = new Date(birthYear, birthMonth - 1, birthDay);
-
-            let age = today.getFullYear() - birthdate.getFullYear();
-            const monthDiff = today.getMonth() - birthdate.getMonth();
-
-            // If the birth month hasn't occurred yet this year, or it's the same month but the day is in the future
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
-                age--;
-            }
-
-            this.profile.age = age;
-        },
-        reveal() {
-            let reveals = document.querySelectorAll(".reveal");
-            for (const element of reveals) {
-                let windowHeight = window.innerHeight;
-                let elementTop = element.getBoundingClientRect().top;
-                let elementVisible = 1;
-                if (elementTop < windowHeight - elementVisible) {
-                    element.classList.add("active");
-                } else {
-                    element.classList.remove("active");
-                }
-            }
-        },
-        contact() {
-            this.appInsights.trackEvent({
-                name: "click-contact",
-            });
-            this.wantContact = true
-        },
-        closeContactModal() {
-            this.wantContact = false
-        },
-        openLinkedIn() {
-            this.appInsights.trackEvent({
-                name: "click-linkedin",
-            });
-            window.open("https://www.linkedin.com/in/serhiy-hulevych-847018172/")
-        },
-        openGithub() {
-            this.appInsights.trackEvent({
-                name: "click-github",
-            });
-            window.open("https://github.com/Serhiy-Hulevych?tab=repositories")
-        },
-        downloadCV() {
-            this.appInsights.trackEvent({
-                name: "download-cv",
-            });
-
-            import('@/assets/CV-Serhiy_Hulevych.pdf').then((pdfModule) => {
-                // Get the actual path from the imported module
-                const pdfPath = pdfModule.default;
-
-                // Create a link element
-                const link = document.createElement('a');
-
-                // Set the download attribute and file URL
-                link.download = 'CV-serhiy-hulevych.pdf';
-                link.href = pdfPath;
-
-                // Append the link to the document
-                document.body.appendChild(link);
-
-                // Trigger a click on the link to start the download
-                link.click();
-
-                // Remove the link from the document
-                document.body.removeChild(link);
-            })
-        }
-    }
-}
+    closeContact() {
+      this.wantContact = false;
+    },
+    downloadCV() {
+      this.track("download-cv");
+      import("@/assets/CV-Serhiy_Hulevych.pdf").then((pdfModule) => {
+        const link = document.createElement("a");
+        link.download = "CV-Serhiy-Hulevych.pdf";
+        link.href = pdfModule.default;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    },
+    openLink(url, event) {
+      this.track(event);
+      window.open(url, "_blank", "noopener");
+    },
+    navigate(route, event) {
+      this.track(event);
+      this.$router.push(route);
+    },
+    track(name) {
+      if (this.appInsights && typeof this.appInsights.trackEvent === "function") {
+        this.appInsights.trackEvent({ name });
+      }
+    },
+  },
+};
 </script>
-
-<style scoped>
-.main-title {
-    font-size: 75px;
-    font-family: sans-serif;
-}
-
-.sub-title {
-    font-size: 36px;
-    font-family: sans-serif;
-    font-weight: bold;
-    color: #BBCEA8;
-}
-
-.title-bio {
-    font-size: 20px;
-}
-
-.profile-picture {
-    width: 20rem;
-    height: 20rem;
-    border-radius: 50%;
-}
-
-.programming-languages {
-    border-radius: 10px;
-    display: grid;
-    grid-template-columns: auto auto auto;
-    column-gap: 10px;
-    row-gap: 35px;
-    padding: 10px;
-    justify-items: center;
-    align-items: center;
-}
-
-.tools {
-    border-radius: 10px;
-    display: grid !important;
-    grid-template-columns: auto auto auto;
-    column-gap: 10px;
-    row-gap: 20px;
-    padding: 10px;
-    justify-items: center;
-    align-items: center;
-}
-
-.is-64x64 {
-    width: auto !important;
-    max-width: 100px !important;
-    height: auto !important;
-    max-height: 50px !important;
-}
-
-.programming-item:hover {
-    scale: 1.5;
-}
-
-.skill-box {
-    min-height: 300px;
-    background: #BBCEA8;
-    border-radius: 25px;
-}
-
-.skill-box-label {
-    color: black;
-    font-weight: bold;
-}
-
-.skill-title {
-    font-size: 1.5rem;
-    padding-bottom: 1rem;
-}
-
-.education-profession {
-    display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 2rem;
-    row-gap: 1rem;
-}
-
-.education-profession p {
-    color: black;
-    font-family: sans-serif;
-    font-weight: bold;
-}
-
-
-.education-profession-item {
-    display: grid;
-    justify-content: center;
-    justify-items: center;
-    align-content: center;
-    background: #BBCEA8;
-    border-radius: 25px;
-    border: solid 1px black;
-    min-height: 250px;
-    cursor: pointer;
-}
-
-.education-profession-label {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    font-size: 36px;
-}
-
-.item1 {
-    grid-row: 1;
-}
-
-.item2 {
-    grid-row: 1;
-}
-
-.item3 {
-    grid-row: 2;
-    grid-column: 1 / 3;
-}
-
-.item3:hover {
-    scale: 1.1
-}
-
-.education-profession-item:hover {
-    scale: 1.1;
-}
-
-.reveal {
-    position: relative;
-    transform: translateY(150px);
-    opacity: 0;
-    transition: 1s all ease;
-}
-
-.reveal.active {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.social-icon:hover {
-    scale: 1.2;
-}
-
-.contact-info:hover {
-    scale: 1.1
-}
-</style>

@@ -28,12 +28,9 @@ const routes = [
 ]
 
 const router = createRouter({
-    mode: "history",
-    base: process.env.BASE_URL,
     history: createWebHistory(process.env.BASE_URL),
     scrollBehavior() {
-        // Scroll to top when navigating to a new route
-        document.getElementById("app").scrollTo(0, 0)
+        return { top: 0 };
     },
     routes
 });

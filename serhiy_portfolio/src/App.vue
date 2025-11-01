@@ -1,11 +1,11 @@
 <template>
-  <router-view v-slot="{ Component, route }">
-    <transition name="fade" mode="out-in">
-      <div :key="route.name">
-        <component :is="Component"></component>
-      </div>
-    </transition>
-  </router-view>
+  <div class="min-h-screen bg-background text-ink">
+    <router-view v-slot="{ Component, route }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" :key="route.fullPath" />
+      </transition>
+    </router-view>
+  </div>
 </template>
 
 <script>
@@ -17,25 +17,12 @@ export default {
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-html {
-  overflow-x: auto;
-  overflow-y: auto !important;
-}
-
-#app {
-  background: #0B0A07;
-  color: white;
-  height: 100vh;
-  width: 100%;
-  overflow-x: auto !important;
-  overflow-y: auto !important;
+  transform: translateY(12px);
 }
 </style>

@@ -1,100 +1,119 @@
 <template>
-    <div class="section">
-        <div class="container">
-            <div class="is-pulled-left is-flex is-clickable" @click="this.$router.go(-1)">
-                <span class="icon is-small mt-1 mr-1">
-                    <font-awesome-icon icon="fa-solid fa-arrow-left" />
-                </span>
-                <p class="is-underlined has-text-weight-bold is-clickable" @click="this.$router.go(-1)">Back</p>
-            </div>
-            <div class="certificates-content mt-6 pt-6">
-                <div v-for="(item, index) in certificates" :key="index" :class="item.itemClass">
-                    <p class="is-flex is-justify-content-center has-text-weight-bold">{{ item.name }}</p>
-                    <div class="is-flex is-justify-content-center">
-                        <img :src="getImageUrl(index)" alt="" class="is-clickable mt-5" style="width: 500px; height: 500px;"
-                            @click="imageName = item.fileName">
-                    </div>
-                </div>
-            </div>
+  <div class="mx-auto max-w-5xl px-4 py-16 md:py-24 space-y-12">
+    <button
+      class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-slate-300 transition hover:border-primary/50 hover:text-white"
+      @click="$router.back()"
+    >
+      <Icon icon="mdi:arrow-left" class="h-4 w-4 text-primary" />
+      Back
+    </button>
+
+    <section class="glass-card space-y-4 p-8 md:p-10">
+      <span class="section-title">Proof points</span>
+      <h1 class="text-3xl font-semibold text-white md:text-4xl">Certificates & recognition</h1>
+      <p class="text-base leading-relaxed text-slate-300">
+        I invest in continuous learning to keep the tools I use sharp. These certificates highlight
+        the areas where I have formal validation alongside hands-on experience.
+      </p>
+    </section>
+
+    <section class="grid gap-6 md:grid-cols-2">
+      <article
+        v-for="certificate in certificates"
+        :key="certificate.name"
+        class="glass-card flex flex-col gap-4 p-6"
+      >
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-400">{{ certificate.type }}</p>
+            <h2 class="mt-2 text-xl font-semibold text-white">{{ certificate.name }}</h2>
+          </div>
+          <button
+            class="rounded-full border border-white/10 bg-white/5 p-2 transition hover:border-primary/40 hover:bg-primary/10"
+            @click="openPreview(certificate)"
+          >
+            <Icon icon="mdi:magnify-plus-outline" class="h-5 w-5 text-primary" />
+          </button>
         </div>
-    </div>
-    <image-modal v-if="imageName != ''" @close="imageName = ''" :imageName="imageName" />
+        <div
+          class="relative overflow-hidden rounded-2xl border border-white/5 bg-background/60 transition hover:border-primary/40 hover:bg-primary/10"
+        >
+          <img
+            :alt="certificate.name"
+            :src="resolveImage(certificate.fileName)"
+            class="w-full object-cover"
+          />
+          <div class="absolute inset-0 flex items-center justify-center bg-background/60 opacity-0 transition group-hover:opacity-100">
+            <Icon icon="mdi:magnify-plus-outline" class="h-8 w-8 text-primary" />
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed text-slate-300">
+          {{ certificate.description }}
+        </p>
+      </article>
+    </section>
+
+    <image-modal
+      v-if="activeCertificate"
+      :imageName="activeCertificate.fileName"
+      @close="activeCertificate = null"
+    />
+  </div>
 </template>
 
 <script>
-import ImageModal from '@/modals/ImageModal.vue';
+import { Icon } from "@iconify/vue";
+import ImageModal from "@/modals/ImageModal.vue";
+
 export default {
-    components: { ImageModal },
-    data: () => ({
-        imageName: "",
-        certificates: [
-            {
-                name: "Dean Letter",
-                fileName: "dean_letter.png",
-                filePath: "@/assets/dean_letter.png",
-                itemClass: "certificates-content-item1"
-            },
-            {
-                name: "Master's Degree",
-                fileName: "masters_degree.png",
-                filePath: "@/assets/masters_degree.png",
-                itemClass: "certificates-content-item2"
-            },
-            {
-                name: "PixieBrix",
-                fileName: "certificate_pixiebrix.png",
-                filePath: "@/assets/certificate_pixiebrix.png",
-                itemClass: "certificates-content-item3"
-            },
-            {
-                name: "Jira",
-                fileName: "certificate_jira.png",
-                filePath: "@/assets/certificate_jira.png",
-                itemClass: "certificates-content-item4"
-            }
-        ]
-    }),
-    created() {
-        window.scrollTo(0, 0)
-    },
-    methods: {
-        getImageUrl(index) {
-            var images = require.context('../assets/', false, /\.png$/)
-            return images('./' + this.certificates[index].fileName)
+  name: "CertificatesPage",
+  components: {
+    ImageModal,
+    Icon,
+  },
+  data() {
+    return {
+      activeCertificate: null,
+      certificates: [
+        {
+          name: "Dean's List Recognition",
+          fileName: "dean_letter.png",
+          type: "Academic",
+          description:
+            "Letter from the Dean acknowledging outstanding academic performance during the master's programme.",
         },
-    }
-}
+        {
+          name: "Master's Degree Diploma",
+          fileName: "masters_degree.png",
+          type: "Academic",
+          description:
+            "Official diploma certifying the completion of the Master's in Computer Science and Engineering.",
+        },
+        {
+          name: "PixieBrix Rapid Process Automation",
+          fileName: "certificate_pixiebrix.png",
+          type: "Professional",
+          description:
+            "Training on creating low-code automation for browser workflows, now used to boost client productivity.",
+        },
+        {
+          name: "Jira Fundamentals",
+          fileName: "certificate_jira.png",
+          type: "Professional",
+          description:
+            "Certification covering Jira project configuration, workflow management, and agile board practices.",
+        },
+      ],
+      imageContext: require.context("../assets/", false, /\.png$/),
+    };
+  },
+  methods: {
+    openPreview(certificate) {
+      this.activeCertificate = certificate;
+    },
+    resolveImage(fileName) {
+      return this.imageContext(`./${fileName}`);
+    },
+  },
+};
 </script>
-
-<style>
-.certificates-content {
-    display: grid;
-    grid-template-columns: auto auto;
-    row-gap: 5rem;
-}
-
-.certificates-content-item1 {
-    grid-row: 1;
-    grid-column: 1 / 2;
-}
-
-.certificates-content-item2 {
-    grid-row: 1;
-    grid-column: 2 / 2;
-}
-
-.certificates-content-item3 {
-    grid-row: 2;
-    grid-column: 1 / 2;
-}
-
-.certificates-content-item4 {
-    grid-row: 2;
-    grid-column: 2 / 2;
-}
-
-.certificates-content-item5 {
-    grid-row: 3;
-    grid-column: 1 / 3;
-}
-</style>

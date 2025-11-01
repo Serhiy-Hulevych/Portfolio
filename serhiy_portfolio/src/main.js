@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from "@/router/index.js"
-import 'bulma/css/bulma.css'; // Import Bulma styles
+import './assets/main.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { AppInsightsPlugin } from "vue3-application-insights";
 

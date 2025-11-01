@@ -1,51 +1,90 @@
 <template>
-    <div class="section mt-5">
-        <div class="container mt-6">
-            <p class="title is-size-1 is-flex is-justify-content-center has-text-weight-bold">Master's in {{
-                education.degree }}</p>
-            <div class="is-flex pt-3 is-clickable" @click="this.$router.go(-1)">
-                <font-awesome-icon class=" mt-1" icon="fa-solid fa-arrow-left" />
-                <p class="is-underlined has-text-weight-bold is-pulled-left ml-2">Back</p>
-            </div>
-            <div class="mt-5">
-                <p class="is-size-3 has-text-weight-bold">Thesis <span class="is-size-3"> - {{
-                    education.university }}</span></p>
-                <div class="is-flex mt-2">
-                    <font-awesome-icon class="mt-1" icon="fa-solid fa-circle-arrow-right" />
-                    <p class="ml-3">Non-supervised learning for documents clustering and classification</p>
-                </div>
-                <div class="is-flex mt-2">
-                    <font-awesome-icon class="mt-1" icon="fa-solid fa-circle-arrow-right" />
-                    <p class="ml-3">Text topics identifcation for any language</p>
-                </div>
-            </div>
-            <div class="mt-6">
-                <p class="is-size-3 has-text-weight-bold">Relevante Courses:</p>
-                <div v-for="(item, index) in education.courses" :key="index" class="is-flex mt-4">
-                    <font-awesome-icon class="mt-1" icon="fa-solid fa-circle-arrow-right" />
-                    <p class="ml-3">{{ item }}</p>
-                </div>
-            </div>
+  <div class="mx-auto max-w-4xl px-4 py-16 md:py-24 space-y-12">
+    <button
+      class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-slate-300 transition hover:border-primary/50 hover:text-white"
+      @click="$router.back()"
+    >
+      <Icon icon="mdi:arrow-left" class="h-4 w-4 text-primary" />
+      Back
+    </button>
+
+    <section class="glass-card space-y-6 p-8 md:p-10">
+      <div class="space-y-3">
+        <span class="section-title">Academic journey</span>
+        <h1 class="text-3xl font-semibold text-white md:text-4xl">
+          {{ education.degree }}
+        </h1>
+        <p class="text-sm uppercase tracking-[0.3em] text-slate-400">
+          {{ education.timeline }}
+        </p>
+        <p class="text-base leading-relaxed text-slate-300">
+          {{ education.school }}
+        </p>
+      </div>
+
+      <div class="rounded-3xl border border-primary/40 bg-primary/10 p-6">
+        <p class="text-xs uppercase tracking-[0.3em] text-primary/80">Thesis highlight</p>
+        <p class="mt-2 text-lg font-medium text-white">{{ education.thesis }}</p>
+      </div>
+    </section>
+
+    <section class="grid gap-6 rounded-3xl border border-white/5 bg-white/5 p-8 md:grid-cols-2">
+      <div class="space-y-4">
+        <p class="section-title text-accent/80">Core courses</p>
+        <p class="text-sm text-slate-300">
+          A balance between theoretical foundations and practical engineering prepared me to move
+          quickly from concept to reliable delivery.
+        </p>
+      </div>
+      <ul class="space-y-3">
+        <li
+          v-for="course in education.courses"
+          :key="course"
+          class="flex items-center gap-3 rounded-2xl border border-white/5 bg-background/60 px-4 py-3 text-sm text-white transition hover:border-primary/40 hover:bg-primary/10"
+        >
+          <Icon icon="mdi:bookmark-multiple-outline" class="h-5 w-5 text-primary" />
+          {{ course }}
+        </li>
+      </ul>
+    </section>
+
+    <section class="glass-card space-y-6 p-8">
+      <div class="space-y-2">
+        <span class="section-title">Languages</span>
+        <h2 class="text-2xl font-semibold text-white">How I collaborate</h2>
+      </div>
+      <p class="text-sm leading-relaxed text-slate-300">
+        I thrive in international environments. Communicating decisions clearly in every language
+        listed below keeps teams aligned and moving forward.
+      </p>
+      <div class="grid gap-3 md:grid-cols-2">
+        <div
+          v-for="lang in languages"
+          :key="lang.name"
+          class="flex items-center justify-between rounded-2xl border border-white/5 bg-white/5 px-5 py-4"
+        >
+          <span class="text-sm font-semibold text-white">{{ lang.name }}</span>
+          <span class="text-xs uppercase tracking-[0.3em] text-slate-400">{{ lang.level }}</span>
         </div>
-    </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
-export default {
-    data: () => ({
-        education: {
-            university: "NOVA School of Science and Technology",
-            degree: "Computer Science",
-            start: 2016,
-            end: 2021,
-            courses: ["Machine Learning", "Cloud Development", "Algorithms and Data Structures", "Network and Computer Systems Security", "Computational Game Theory", "Object Oriented Programming"]
-        }
-    })
-}
-</script>
+import { Icon } from "@iconify/vue";
+import { education, languages } from "@/data/resume";
 
-<style>
-.title {
-    color: #BBCEA8 !important
-}
-</style>
+export default {
+  name: "EducationPage",
+  components: {
+    Icon,
+  },
+  data() {
+    return {
+      education,
+      languages,
+    };
+  },
+};
+</script>
